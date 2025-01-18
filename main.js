@@ -9,28 +9,41 @@ async function getPokemonDescription() {
         'Accept': 'application/json',
       },
       body: JSON.stringify({
-        prompt: `Generate a creative description for a unique Pogemon inspired by BUGGED, the legendary Gathering Master of Brighter Shores. The name should reflect gathering, exploration, or coastal themes, derived from clever combinations like:
-        - "Harvestide" (from harvest + tide)
-        - "Shellfinder" (from shell + finder)
-        - "Coastweaver" (from coast + weaver)
-        
-        The description should incorporate elements of gathering, exploration, and the coastal world of Brighter Shores. Include references to gathering skills, discovered treasures, or coastal environments. Each response should capture the spirit of adventure and discovery that BUGGED embodies.
+        prompt: `Generate a creative description for a unique Pogemon inspired by BUGGED's gathering adventures in Hopeforest of Brighter Shores. Include references to gathering locations like Rotting Logs, Thickets, Soil Mounds, or Aboredon Nests. The Pogemon should feel like it belongs in BUGGED's gathering locations. There's also a 15% chance the Pogemon should be wearing a Green Santa hat like BUGGED!
 
+        Incorporate items from gathering like:
+        - Various Beetroots (Golbranth, Tarang, Kalb, etc)
+        - Different Bugs (Slothful, Salt, Pine, Blood, etc)
+        - Ancient Coins (Brass, Bronze, Silver, Gold)
+        - Various resources (Strangle Shoot, Feast Worms, Samuel's Lichen)
+        - Special items (Blue Aboredon Egg, Gnawed Sheep Rib)
+
+        Note: There is a single known Eyeball Pogemon in the regions BUGGED explores, so occasionally (5% chance) generate an eyeball-themed Pogemon.
+
+        The name should cleverly combine gathering-related terms, like:
+        - "Harvenom" (from harvest + venom)
+        - "Foragile" (from forage + agile)
+        - "Gleamoss" (from glean + moss)
+        
         interface Response {
           name: string;
           description: string;
           type: string;
           height: string;
           weight: string;
+          hasGreenSantaHat: boolean;
+          isEyeballPogemon: boolean;
         }
 
         Example response (generate something completely different):
         {
-          "name": "Gathermist",
-          "description": "A mystical Water/Ground Pogemon that glides along shorelines at dawn, using its crystalline antennae to detect precious resources beneath the sand. Known to share its discoveries with fellow adventurers, much like the legendary gathering master BUGGED.",
-          "type": "Water/Ground",
-          "height": "1.2m",
-          "weight": "35kg"
+          "name": "Rootrale",
+          "description": "A crafty Ground/Bug Pogemon that dwells in Hopeforest's Rotting Logs. Known for unearthing prized Golbranth Beetroots with its crystalline antennae. Like BUGGED, it's a master at discovering hidden treasures, often sharing its findings with fellow gatherers.",
+          "type": "Ground/Bug",
+          "height": "0.8m",
+          "weight": "23kg",
+          "hasGreenSantaHat": false,
+          "isEyeballPogemon": false
         }`,
         data: ""
       }),
@@ -44,7 +57,9 @@ async function getPokemonDescription() {
       description: 'Failed to generate Pogemon description',
       type: 'Unknown',
       height: 'Unknown',
-      weight: 'Unknown'
+      weight: 'Unknown',
+      hasGreenSantaHat: false,
+      isEyeballPogemon: false
     };
   }
 }
@@ -58,7 +73,7 @@ async function generatePokemonImage(description) {
         'Accept': 'application/json',
       },
       body: JSON.stringify({
-        prompt: `Generate a unique image URL for a cartoon Pogemon based on this description: "cartoon Pogemon ${description}". Each response should be different and creative. Return a URL to an image that matches the description.
+        prompt: `Generate a unique image URL for a cartoon Pogemon based in the Hopeforest from Brighter Shores with this description: "${description}". If the Pogemon is wearing a Green Santa hat or is an eyeball-themed Pogemon, make sure to emphasize those features. Return a URL to an image that matches the description.
 
         interface Response {
           imageUrl: string;
